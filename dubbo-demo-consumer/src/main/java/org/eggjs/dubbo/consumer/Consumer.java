@@ -1,5 +1,7 @@
 package org.eggjs.dubbo.consumer;
 
+import com.alibaba.fastjson.JSON;
+import org.eggjs.dubbo.User;
 import org.eggjs.dubbo.UserService;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -16,8 +18,13 @@ public class Consumer {
         while (true) {
             try {
                 Thread.sleep(1000);
-                String hello = userService.sayHello("world"); // call remote method
-                System.out.println(hello); // get result
+                User user = new User();
+                user.setName("宗羽");
+                user.setSalary(10000);
+                user.setId(68955);
+                user.setAddress("蚂蚁C空间");
+                User result = userService.echoUser(user); // call remote method
+                System.out.println(JSON.toJSONString(result)); // get result
             } catch (Throwable throwable) {
                 throwable.printStackTrace();
             }
